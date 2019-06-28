@@ -42,7 +42,8 @@ export const DownChevron = (props: any) => (
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps = CommonProps & {
+export type IndicatorProps = {|
+  ...CommonProps,
   /** The children to be rendered inside the indicator. */
   children: Node,
   /** Props that will be passed on to the children. */
@@ -51,7 +52,7 @@ export type IndicatorProps = CommonProps & {
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
-};
+|};
 
 const baseCSS = ({
   isFocused,
@@ -177,7 +178,7 @@ export const loadingIndicatorCSS = ({
   verticalAlign: 'middle',
 });
 
-type DotProps = { color: string, delay: number, offset: boolean };
+type DotProps = {| color: string, delay: number, offset: boolean |};
 const LoadingDot = ({ color, delay, offset }: DotProps) => (
   <span
     css={{
@@ -193,17 +194,17 @@ const LoadingDot = ({ color, delay, offset }: DotProps) => (
   />
 );
 
-export type LoadingIconProps = {
+export type LoadingIconProps = {|
   /** Props that will be passed on to the children. */
   innerProps: any,
   /** The focused state of the select. */
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
-} & CommonProps & {
-    /** Set size of the container. */
-    size: number,
-  };
+  ...CommonProps,
+  /** Set size of the container. */
+  size: number,
+|};
 export const LoadingIndicator = (props: LoadingIconProps) => {
   const {
     className,

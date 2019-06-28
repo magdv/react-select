@@ -1,12 +1,12 @@
 // @flow
 
-type Config = {
+type Config = {|
   ignoreCase?: boolean,
   ignoreAccents?: boolean,
   stringify?: Object => string,
   trim?: boolean,
   matchFrom?: 'any' | 'start',
-};
+|};
 
 import { stripDiacritics } from './diacritics';
 

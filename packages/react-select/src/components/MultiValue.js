@@ -5,7 +5,8 @@ import { jsx, ClassNames } from '@emotion/core';
 import { CrossIcon } from './indicators';
 import type { CommonProps } from '../types';
 
-export type MultiValueProps = CommonProps & {
+export type MultiValueProps = {|
+  ...CommonProps,
   children: Node,
   components: any,
   cropWithEllipsis: boolean,
@@ -18,7 +19,7 @@ export type MultiValueProps = CommonProps & {
     onClick: any => void,
     onMouseDown: any => void,
   },
-};
+|};
 
 export const multiValueCSS = ({
   theme: { spacing, borderRadius, colors },
@@ -61,12 +62,12 @@ export const multiValueRemoveCSS = ({
   },
 });
 
-export type MultiValueGenericProps = {
+export type MultiValueGenericProps = {|
   children: Node,
   data: any,
   innerProps: { className?: string },
   selectProps: any,
-};
+|};
 export const MultiValueGeneric = ({
   children,
   innerProps,
@@ -74,7 +75,7 @@ export const MultiValueGeneric = ({
 
 export const MultiValueContainer = MultiValueGeneric;
 export const MultiValueLabel = MultiValueGeneric;
-export type MultiValueRemoveProps = {
+export type MultiValueRemoveProps = {|
   children: Node,
   data: any,
   innerProps: {
@@ -84,7 +85,7 @@ export type MultiValueRemoveProps = {
     onMouseDown: any => void,
   },
   selectProps: any,
-};
+|};
 export class MultiValueRemove extends Component<MultiValueRemoveProps> {
   render() {
     const { children, innerProps } = this.props;

@@ -8,20 +8,23 @@ import type { CommonProps, KeyboardEventHandler } from '../types';
 // Root Container
 // ==============================
 
-type ContainerState = {
+type ContainerState = {|
+  /** Whether the select is disabled. */
+  isFocused: boolean,
   /** Whether the select is disabled. */
   isDisabled: boolean,
   /** Whether the text in the select is indented from right to left. */
   isRtl: boolean,
-};
+|};
 
-export type ContainerProps = CommonProps &
-  ContainerState & {
-    /** The children to be rendered. */
-    children: Node,
-    /** Inner props to be passed down to the container. */
-    innerProps: { onKeyDown: KeyboardEventHandler },
-  };
+export type ContainerProps = {|
+  ...CommonProps,
+  ...ContainerState,
+  /** The children to be rendered. */
+  children: Node,
+  /** Inner props to be passed down to the container. */
+  innerProps: { onKeyDown: KeyboardEventHandler },
+|};
 export const containerCSS = ({ isDisabled, isRtl }: ContainerState) => ({
   label: 'container',
   direction: isRtl ? 'rtl' : null,
@@ -59,14 +62,16 @@ export const SelectContainer = (props: ContainerProps) => {
 // Value Container
 // ==============================
 
-export type ValueContainerProps = CommonProps & {
+export type ValueContainerProps = {|
+  ...CommonProps,
+  isDisabled: boolean,
   /** Set when the value container should hold multiple values */
   isMulti: boolean,
   /** Whether the value container currently holds a value. */
   hasValue: boolean,
   /** The children to be rendered. */
   children: Node,
-};
+|};
 export const valueContainerCSS = ({
   theme: { spacing },
 }: ValueContainerProps) => ({
@@ -112,16 +117,19 @@ export class ValueContainer extends Component<ValueContainerProps> {
 // Indicator Container
 // ==============================
 
-type IndicatorsState = {
+type IndicatorsState = {|
   /** Whether the text should be rendered right to left. */
   isRtl: boolean,
-};
+|};
 
-export type IndicatorContainerProps = CommonProps &
-  IndicatorsState & {
-    /** The children to be rendered. */
-    children: Node,
-  };
+export type IndicatorContainerProps = {|
+  ...CommonProps,
+  ...IndicatorsState,
+  /** Whether the select is disabled. */
+  isDisabled: boolean,
+  /** The children to be rendered. */
+  children: Node,
+|};
 
 export const indicatorsContainerCSS = () => ({
   alignItems: 'center',

@@ -6,7 +6,8 @@ import AutosizeInput from 'react-input-autosize';
 
 import type { PropsWithStyles, ClassNamesState } from '../types';
 
-export type InputProps = PropsWithStyles & {
+export type InputProps = {
+  ...PropsWithStyles,
   cx: (?ClassNamesState, ?string) => string | void,
   /** Reference to the internal element */
   innerRef: (ElementRef<*>) => void,
@@ -15,6 +16,7 @@ export type InputProps = PropsWithStyles & {
   /** Whether the input is disabled */
   isDisabled?: boolean,
   className?: string,
+  selectProps: any,
 };
 
 export const inputCSS = ({

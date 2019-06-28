@@ -4,10 +4,10 @@ import { CacheProvider } from '@emotion/core';
 import createCache from '@emotion/cache';
 import memoizeOne from 'memoize-one';
 
-type NonceProviderProps = {
+type NonceProviderProps = {|
   nonce: string,
   children: Node,
-};
+|};
 
 export default class NonceProvider extends Component<NonceProviderProps> {
   constructor(props: NonceProviderProps) {

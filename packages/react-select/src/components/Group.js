@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import type { CommonProps } from '../types';
 
-type ComponentProps = {
+type ComponentProps = {|
   /** The children to be rendered. */
   children: Node,
   /** Component to wrap the label, recieves headingProps. */
@@ -14,8 +14,11 @@ type ComponentProps = {
   headingProps: any,
   /** Label to be displayed in the heading component. */
   label: Node,
-};
-export type GroupProps = CommonProps & ComponentProps;
+|};
+export type GroupProps = {|
+  ...CommonProps,
+  ...ComponentProps
+|};
 
 export const groupCSS = ({ theme: { spacing } }: GroupProps) => ({
   paddingBottom: spacing.baseUnit * 2,

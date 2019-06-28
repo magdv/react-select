@@ -3,19 +3,19 @@
 import type { CommonProps } from '../types';
 import { jsx } from '@emotion/core';
 
-type State = {
+type State = {|
   /** Whether this is disabled. */
   isDisabled: boolean,
-};
-type ValueProps = {
+|};
+type ValueProps = {|
   /** The children to be rendered. */
   children: string,
   /* The data of the selected option rendered in the Single Value component. */
   data: any,
   /** Props passed to the wrapping element for the group. */
   innerProps: any,
-};
-export type SingleValueProps = CommonProps & ValueProps & State;
+|};
+export type SingleValueProps = {|...CommonProps, ...ValueProps, ...State|};
 
 export const css = ({
   isDisabled,

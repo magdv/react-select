@@ -49,7 +49,7 @@ export type PlaceholderOrValue =
 
 type IndicatorComponentType = ComponentType<IndicatorProps>;
 
-export type SelectComponents = {
+export type SelectComponents = {|
   ClearIndicator: IndicatorComponentType | null,
   Control: ComponentType<ControlProps>,
   DropdownIndicator: IndicatorComponentType | null,
@@ -75,7 +75,7 @@ export type SelectComponents = {
   SelectContainer: ComponentType<ContainerProps>,
   SingleValue: ComponentType<SingleValueProps>,
   ValueContainer: ComponentType<ValueContainerProps>,
-};
+|};
 
 export type SelectComponentsConfig = $Shape<SelectComponents>;
 
@@ -107,9 +107,9 @@ export const components = {
   ValueContainer: ValueContainer,
 };
 
-type Props = {
+type Props = {|
   components: SelectComponentsConfig,
-};
+|};
 
 export const defaultComponents = (props: Props) => ({
   ...components,

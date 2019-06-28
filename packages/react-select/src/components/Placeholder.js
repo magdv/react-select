@@ -4,12 +4,13 @@ import { type Node } from 'react';
 import { jsx } from '@emotion/core';
 import type { CommonProps } from '../types';
 
-export type PlaceholderProps = CommonProps & {
+export type PlaceholderProps = {|
+  ...CommonProps,
   /** The children to be rendered. */
   children: Node,
   /** props passed to the wrapping element for the group. */
   innerProps: { [string]: any },
-};
+|};
 
 export const placeholderCSS = ({
   theme: { spacing, colors },

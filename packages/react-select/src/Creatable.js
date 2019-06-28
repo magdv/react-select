@@ -40,7 +40,7 @@ export type CreatableProps = {|
   onChange: (ValueType, ActionMeta) => void,
 |};
 
-export type Props = SelectProps & CreatableProps;
+export type Props = {|...SelectProps, ...CreatableProps|};
 
 const compareOption = (inputValue = '', option) => {
   const candidate = String(inputValue).toLowerCase();
@@ -74,10 +74,10 @@ export const defaultProps = {
   ...builtins,
 };
 
-type State = {
+type State = {|
   newOption: OptionType | void,
   options: OptionsType,
-};
+|};
 
 export const makeCreatableSelect = <C: {}>(
   SelectComponent: AbstractComponent<C>

@@ -4,13 +4,13 @@ import React, { Component, type Element } from 'react';
 
 import NodeResolver from './NodeResolver';
 
-export type CaptorProps = {
+export type CaptorProps = {|
   children: Element<*>,
   onBottomArrive?: (event: SyntheticEvent<HTMLElement>) => void,
   onBottomLeave?: (event: SyntheticEvent<HTMLElement>) => void,
   onTopArrive?: (event: SyntheticEvent<HTMLElement>) => void,
   onTopLeave?: (event: SyntheticEvent<HTMLElement>) => void,
-};
+|};
 
 class ScrollCaptor extends Component<CaptorProps> {
   isBottom: boolean = false;
@@ -133,9 +133,10 @@ class ScrollCaptor extends Component<CaptorProps> {
   }
 }
 
-type SwitchProps = CaptorProps & {
+type SwitchProps = {|
+  ...CaptorProps,
   isEnabled: boolean,
-};
+|};
 
 export default class ScrollCaptorSwitch extends Component<SwitchProps> {
   static defaultProps = { isEnabled: true };

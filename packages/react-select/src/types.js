@@ -1,16 +1,16 @@
 // @flow
 import type { Ref } from 'react';
 
-export type OptionType = {
+export type OptionType = {|
   [string]: any,
-};
+|};
 
 export type OptionsType = Array<OptionType>;
 
-export type GroupType = {
+export type GroupType = {|
   options: OptionsType,
   [string]: any,
-};
+|};
 
 export type ValueType = OptionType | OptionsType | null | void;
 
@@ -21,24 +21,24 @@ export type KeyboardEventHandler = (
 ) => void;
 
 export type InnerRef = Ref<*>;
-export type PropsWithInnerRef = {
+export type PropsWithInnerRef = {|
   /** The inner reference. */
   innerRef: Ref<*>,
-};
+|};
 
-type ThemeSpacing = {
+type ThemeSpacing = {|
   baseUnit: number,
   controlHeight: number,
   menuGutter: number,
-};
+|};
 
-export type Theme = {
+export type Theme = {|
   borderRadius: number,
   colors: { [key: string]: string },
   spacing: ThemeSpacing,
-};
+|};
 
-export type PropsWithStyles = {
+export type PropsWithStyles = {|
   /**
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
@@ -46,12 +46,12 @@ export type PropsWithStyles = {
   */
   getStyles: (string, any) => {},
   theme: Theme,
-};
+|};
 
 export type ClassNameList = Array<string>;
-export type ClassNamesState = { [string]: boolean } | void;
+export type ClassNamesState = {[string]: boolean } | void;
 
-export type CommonProps = {
+export type CommonProps = {|
   clearValue: () => void,
   className?: string,
   cx: (
@@ -68,11 +68,12 @@ export type CommonProps = {
   getValue: () => ValueType,
   hasValue: boolean,
   isMulti: boolean,
+  isRtl: boolean,
   options: OptionsType,
   selectOption: OptionType => void,
   selectProps: any,
   setValue: (ValueType, ActionTypes) => void,
-};
+|};
 
 export type ActionTypes =
   | 'select-option'
@@ -83,9 +84,12 @@ export type ActionTypes =
   | 'clear'
   | 'create-option';
 
-export type ActionMeta = {
+export type ActionMeta = {|
   action: ActionTypes,
-};
+  name?: string,
+  option?: OptionType,
+  removedValue?: OptionType,
+|};
 
 export type InputActionTypes =
   | 'set-value'
@@ -108,7 +112,8 @@ export type FocusDirection =
   | 'first'
   | 'last';
 
-export type OptionProps = PropsWithInnerRef & {
+export type OptionProps = {|
+  ...PropsWithInnerRef,
   data: any,
   id: number,
   index: number,
@@ -119,4 +124,4 @@ export type OptionProps = PropsWithInnerRef & {
   onClick: MouseEventHandler,
   onMouseOver: MouseEventHandler,
   value: any,
-};
+|};

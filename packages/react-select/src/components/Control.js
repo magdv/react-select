@@ -5,18 +5,19 @@ import { jsx } from '@emotion/core';
 
 import type { CommonProps, PropsWithStyles } from '../types';
 
-type State = {
+type State = {|
   /** Whether the select is disabled. */
   isDisabled: boolean,
   /** Whether the select is focused. */
   isFocused: boolean,
   /** Whether the select is expanded. */
   menuIsOpen: boolean,
-};
+|};
 
-export type ControlProps = CommonProps &
-  PropsWithStyles &
-  State & {
+export type ControlProps = {|
+    ...CommonProps,
+    ...State,
+    ...PropsWithStyles,
     /** Children to render. */
     children: Node,
     innerRef: ElementRef<*>,
@@ -24,7 +25,7 @@ export type ControlProps = CommonProps &
     innerProps: {
       onMouseDown: (SyntheticMouseEvent<HTMLElement>) => void,
     },
-  };
+  |};
 
 export const css = ({
   isDisabled,

@@ -11,7 +11,7 @@ import { handleInputChange } from './utils';
 import manageState from './stateManager';
 import type { OptionsType, InputActionMeta } from './types';
 
-export type AsyncProps = {
+export type AsyncProps = {|
   /* The default set of options to show before the user starts searching. When
      set to `true`, the results for loadOptions('') will be autoloaded. */
   defaultOptions: OptionsType | boolean,
@@ -23,9 +23,9 @@ export type AsyncProps = {
   cacheOptions: any,
   onInputChange: (string, InputActionMeta) => void,
   inputValue?: string,
-};
+|};
 
-export type Props = SelectProps & AsyncProps;
+export type Props = {|...SelectProps , ...AsyncProps|};
 
 export const defaultProps = {
   cacheOptions: false,
@@ -33,25 +33,25 @@ export const defaultProps = {
   filterOption: null,
 };
 
-type State = {
+type State = {|
   defaultOptions?: OptionsType,
   inputValue: string,
   isLoading: boolean,
   loadedInputValue?: string,
   loadedOptions: OptionsType,
   passEmptyOptions: boolean,
-};
+|};
 
-export const makeAsyncSelect = <C: {}>(
+export const makeAsyncSelect = <C>(
   SelectComponent: AbstractComponent<C>
-): AbstractComponent<C & AsyncProps> =>
-  class Async extends Component<C & AsyncProps, State> {
+): AbstractComponent<{|...C, ...AsyncProps|}> =>
+  class Async extends Component<{|...C, ...AsyncProps|}, State> {
     static defaultProps = defaultProps;
     select: ElementRef<*>;
     lastRequest: {};
     mounted: boolean = false;
     optionsCache: { [string]: OptionsType } = {};
-    constructor(props: C & AsyncProps) {
+    constructor(props: {|...C, ...AsyncProps|}) {
       super();
       this.state = {
         defaultOptions: Array.isArray(props.defaultOptions)
@@ -76,7 +76,7 @@ export const makeAsyncSelect = <C: {}>(
         });
       }
     }
-    componentWillReceiveProps(nextProps: C & AsyncProps) {
+    componentWillReceiveProps(nextProps: {|...C, ...AsyncProps|}) {
       // if the cacheOptions prop changes, clear the cache
       if (nextProps.cacheOptions !== this.props.cacheOptions) {
         this.optionsCache = {};

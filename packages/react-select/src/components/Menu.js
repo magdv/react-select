@@ -33,11 +33,11 @@ import type { Theme } from '../types';
 // Get Menu Placement
 // ------------------------------
 
-type MenuState = {
+type MenuState = {|
   placement: 'bottom' | 'top' | null,
   maxHeight: number,
-};
-type PlacementArgs = {
+|};
+type PlacementArgs = {|
   maxHeight: number,
   menuEl: ElementRef<*>,
   minHeight: number,
@@ -45,7 +45,7 @@ type PlacementArgs = {
   shouldScroll: boolean,
   isFixedPosition: boolean,
   theme: Theme,
-};
+|};
 
 export function getMenuPlacement({
   maxHeight,
@@ -207,7 +207,8 @@ export function getMenuPlacement({
 // Menu Component
 // ------------------------------
 
-export type MenuAndPlacerCommon = CommonProps & {
+export type MenuAndPlacerCommon = {|
+  ...CommonProps,
   /** Callback to update the portal after possible flip. */
   getPortalPlacement: MenuState => void,
   /** Props to be passed to the menu wrapper. */
@@ -222,17 +223,19 @@ export type MenuAndPlacerCommon = CommonProps & {
   minMenuHeight: number,
   /** Set whether the page should scroll to show the menu. */
   menuShouldScrollIntoView: boolean,
-};
-export type MenuProps = MenuAndPlacerCommon & {
+|};
+export type MenuProps =  {|
+  ...MenuAndPlacerCommon,
   /** Reference to the internal element, consumed by the MenuPlacer component */
   innerRef: ElementRef<*>,
   /** The children to be rendered. */
   children: ReactElement<*>,
-};
-export type MenuPlacerProps = MenuAndPlacerCommon & {
+|};
+export type MenuPlacerProps = {|
+  ...MenuAndPlacerCommon,
   /** The children to be rendered. */
   children: ({}) => Node,
-};
+|};
 
 function alignToControl(placement) {
   const placementToCSSProp = { bottom: 'top', top: 'bottom' };
@@ -240,7 +243,10 @@ function alignToControl(placement) {
 }
 const coercePlacement = p => (p === 'auto' ? 'bottom' : p);
 
-type MenuStateWithProps = MenuState & MenuProps;
+type MenuStateWithProps = {|
+  ...MenuState,
+  ...MenuProps
+|};
 
 export const menuCSS = ({
   placement,
@@ -335,22 +341,23 @@ export default Menu;
 // Menu List
 // ==============================
 
-type MenuListState = {
+type MenuListState = {|
   /** Set classname for isMulti */
   isMulti: boolean,
   /* Set the max height of the Menu component  */
   maxHeight: number,
-};
+|};
 
-export type MenuListProps = {
+export type MenuListProps = {|
   /** The children to be rendered. */
   children: Node,
   /** Inner ref to DOM Node */
   innerRef: InnerRef,
-};
-export type MenuListComponentProps = CommonProps &
-  MenuListProps &
-  MenuListState;
+|};
+export type MenuListComponentProps = {|
+  ...CommonProps,
+  ...MenuListProps,
+  ...MenuListState|};
 export const menuListCSS = ({
   maxHeight,
   theme: {
@@ -400,12 +407,13 @@ const noticeCSS = ({
 export const noOptionsMessageCSS = noticeCSS;
 export const loadingMessageCSS = noticeCSS;
 
-export type NoticeProps = CommonProps & {
+export type NoticeProps = {|
+  ...CommonProps,
   /** The children to be rendered. */
   children: Node,
   /** Props to be passed on to the wrapper. */
   innerProps: {},
-};
+|};
 
 export const NoOptionsMessage = (props: NoticeProps) => {
   const { children, className, cx, getStyles, innerProps } = props;
@@ -455,21 +463,22 @@ LoadingMessage.defaultProps = {
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps = CommonProps & {
+export type MenuPortalProps = {|
+  ...CommonProps,
   appendTo: HTMLElement,
   children: Node, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
   menuPlacement: MenuPlacement,
   menuPosition: MenuPosition,
-};
-type MenuPortalState = {
+|};
+type MenuPortalState = {|
   placement: 'bottom' | 'top' | null,
-};
-type PortalStyleArgs = {
+|};
+type PortalStyleArgs = {|
   offset: number,
   position: MenuPosition,
   rect: RectType,
-};
+|};
 
 export const menuPortalCSS = ({ rect, offset, position }: PortalStyleArgs) => ({
   left: rect.left,

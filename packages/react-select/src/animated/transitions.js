@@ -4,21 +4,22 @@ import React, { Component, type ComponentType, type ElementRef } from 'react';
 import { Transition } from 'react-transition-group';
 
 export type fn = () => void;
-export type BaseTransition = {
+export type BaseTransition = {|
   /** Whether we are in a transition. */
   in: boolean,
   /** Function to be called once transition finishes. */
   onExited: fn
-};
+|};
 
 // ==============================
 // Fade Transition
 // ==============================
 
-type FadeProps = BaseTransition & {
+type FadeProps = {|
+  ...BaseTransition,
   component: ComponentType<any>,
   duration: number,
-};
+|};
 export const Fade = ({
   component: Tag,
   duration = 1,
@@ -55,8 +56,8 @@ export const collapseDuration = 260;
 
 type TransitionState = 'exiting' | 'exited';
 type Width = number | 'auto';
-type CollapseProps = { children: any, in: boolean };
-type CollapseState = { width: Width };
+type CollapseProps = {| children: any, in: boolean |};
+type CollapseState = {| width: Width |};
 
 // wrap each MultiValue with a collapse transition; decreases width until
 // finally removing from DOM

@@ -3,10 +3,10 @@
 import { Component, type Element, type ElementRef } from 'react';
 import { findDOMNode } from 'react-dom';
 
-type Props = {
+type Props = {|
   children: Element<*>,
   innerRef: ElementRef<*>,
-};
+|};
 
 export default class NodeResolver extends Component<Props> {
   componentDidMount() {

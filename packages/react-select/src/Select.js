@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, type ElementRef, type Node } from 'react';
+import React, { Component, type ElementRef, type Node, type ElementConfig } from 'react';
 import memoizeOne from 'memoize-one';
 import { MenuPlacer } from './components/Menu';
 import isEqual from './internal/react-fast-compare';
@@ -46,6 +46,7 @@ import {
   type SelectComponentsConfig,
 } from './components/index';
 
+import {type OptionProps} from './components/Option';
 import { defaultStyles, type StylesConfig } from './styles';
 import { defaultTheme, type ThemeConfig } from './theme';
 
@@ -68,13 +69,13 @@ type MouseOrTouchEvent =
   | SyntheticMouseEvent<HTMLElement>
   | SyntheticTouchEvent<HTMLElement>;
 type FormatOptionLabelContext = 'menu' | 'value';
-type FormatOptionLabelMeta = {
+type FormatOptionLabelMeta = {|
   context: FormatOptionLabelContext,
   inputValue: string,
   selectValue: ValueType,
-};
+|};
 
-export type Props = {
+export type Props = {|
   /* Aria label (for assistive tech) */
   'aria-label'?: string,
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -243,7 +244,7 @@ export type Props = {
   tabSelectsValue: boolean,
   /* The value of the select; reflected by the selected option */
   value: ValueType,
-};
+|};
 
 export const defaultProps = {
   backspaceRemovesValue: true,
@@ -285,12 +286,28 @@ export const defaultProps = {
   tabSelectsValue: true,
 };
 
-type MenuOptions = {
-  render: Array<OptionType>,
-  focusable: Array<OptionType>,
-};
 
-type State = {
+type InternalOptionType = {|
+  ...OptionProps,
+  key: string,
+|}
+
+type RenderMenuItem =
+  | OptionType
+  | InternalOptionType
+  | {|
+      type: 'group',
+      key: string,
+      data: OptionType,
+      options: Array<OptionType>,
+    |};
+
+type MenuOptions = {|
+  render: Array<RenderMenuItem>,
+  focusable: Array<OptionType>,
+|};
+
+type State = {|
   ariaLiveSelection: string,
   ariaLiveContext: string,
   inputIsHidden: boolean,
@@ -299,7 +316,7 @@ type State = {
   focusedValue: OptionType | null,
   menuOptions: MenuOptions,
   selectValue: OptionsType,
-};
+|};
 
 type ElRef = ElementRef<*>;
 
@@ -343,7 +360,7 @@ export default class Select extends Component<Props, State> {
     this.controlRef = ref;
   };
   focusedOptionRef: ElRef = null;
-  getFocusedOptionRef = (ref: HTMLElement) => {
+  getFocusedOptionRef = (ref?: HTMLElement) => {
     this.focusedOptionRef = ref;
   };
   menuListRef: ElRef = null;
@@ -1644,7 +1661,7 @@ export default class Select extends Component<Props, State> {
     if (!menuIsOpen) return null;
 
     // TODO: Internal Option Type here
-    const render = (props: OptionType) => {
+    const render = (props: InternalOptionType) => {
       // for performance, the menu options in state aren't changed when the
       // focused option changes so we calculate additional props based on that
       const isFocused = focusedOption === props.data;
